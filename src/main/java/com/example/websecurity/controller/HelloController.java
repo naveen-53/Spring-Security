@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 public class HelloController {
 	
-	@GetMapping("/")
+	@GetMapping("/admin")
 	public String hello(HttpServletRequest request) {
 		return "Welcome naveen "+request.getSession().getId();
 	}

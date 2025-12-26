@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,22 +26,26 @@ public class StudentController {
 								);
 																	
 			
-	
-	@GetMapping("/students")
+	@GetMapping("students")
 	public List<Student> getStudents(){
 		return students;
 	}
 	
-	@GetMapping("/csrf-token")
-	public CsrfToken getCsrfToken(HttpServletRequest request){
-		return (CsrfToken) request.getAttribute("_csrf");
-	}
+	/*
+	 * @GetMapping("csrf-token") public CsrfToken getCsrfToken(HttpServletRequest
+	 * request){ return (CsrfToken) request.getAttribute("_csrf"); }
+	 */
 
 	
-	@PostMapping("/students")
+	@PostMapping("students")
 	public Student addStudent(@RequestBody Student student) {
 		students.add(student);
 		return student;
 	}
+	@GetMapping("greet")
+	public String  welcome(){
+		return "Welcome";
+	}
+
 
 }
