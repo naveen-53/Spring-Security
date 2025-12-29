@@ -1,6 +1,7 @@
 package com.example.websecurity.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -16,11 +17,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	
-		System.out.println("Entered security");
+		log.info("Entered security");
 		
 		return http
 				.csrf(customizer -> customizer.disable())
@@ -36,7 +38,7 @@ public class SecurityConfig {
 	public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
 	    DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 	    provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance()); 
-	    provider.setUserDetailsService(userDetailsService); // Link manually
+	    provider.setUserDetailsService(userDetailsService);
 	    return provider;
 	}
 

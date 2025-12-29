@@ -1,5 +1,8 @@
 package com.example.websecurity.repo;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -8,12 +11,11 @@ import com.example.websecurity.model.Users;
 
 @Repository
 public class UserRepo {
+	
+	private static final Logger log = LoggerFactory.getLogger(UserRepo.class);
 
     private final JdbcTemplate jdbcTemplate;
-
-    // Use constructor injection for 2025 bes
     
-    t practices
     public UserRepo(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -29,12 +31,11 @@ public class UserRepo {
     public Users findByUsername(String username) {
         // Safer than queryForObject; returns null instead of throwing exception if missing
     	
-    	System.out.println("method called.......");
+    	log.info("method called.......");
         Users user = jdbcTemplate.query("SELECT * FROM users WHERE username = ?", mapper, username)
                 .stream()
                 .findFirst()
                 .orElse(null);
-        System.out.println(user.getUsername());
         return user;
     }
 }
